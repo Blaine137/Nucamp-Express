@@ -12,11 +12,13 @@ const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const passport = require('passport');
 const authenticate = require('./authenticate');
+const config = require('./config');
+const url = config.mongoUrl;
 
 var app = express();
 
 const mongoose = require('mongoose');
-const url = 'mongodb://localhost:27017/nucampsite';
+
 
   //connecting to db
 const connect = mongoose.connect(url, {
@@ -37,8 +39,7 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(passport.initialize());
-app.use(passport.session());
+
 //app.use(cookieParser('12345-67890-09876-54321'));
 
 app.use(session({
@@ -49,23 +50,14 @@ app.use(session({
   store: new FileStore()
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 //these routes need to go before auth function
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-function auth(req, res, next) {
-  console.log(req.user);
 
-  if (!req.user) {
-      const err = new Error('You are not authenticated!');                    
-      err.status = 401;
-      return next(err);
-  } else {
-      return next();
-  }
-}
-
-app.use(auth);
 app.use(express.static(path.join(__dirname, 'public')));
 
   //ROUTES
