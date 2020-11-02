@@ -8,6 +8,7 @@ const usersRouter = require('./routes/users');
 const campsiteRouter = require('./routes/campsiteRouter');
 const promotionRouter = require('./routes/promotionRouter');
 const partnerRouter = require('./routes/partnerRouter');
+const uploadRouter = require('./routes/uploadRouter');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const passport = require('passport');
@@ -65,6 +66,7 @@ app.use(passport.session());
 //these routes need to go before auth function
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/imageUpload', uploadRouter);
 
 
 app.use(express.static(path.join(__dirname, 'public')));
