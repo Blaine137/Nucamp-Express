@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { model } = require('./user');
 const Schema = mongoose.Schema;
 
 const favoriteSchema = new Schema({
