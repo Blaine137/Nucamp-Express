@@ -82,7 +82,7 @@ favoriteRouter.route('/:campsiteId')
 		favorite => {
 			if(favorite) {
 				if(!favorite.campsites.includes(req.params.campsiteId)) {
-					favorite.campsite.push(req.params.campsiteId);
+					favorite.campsites.push(req.params.campsiteId);
 					favorite.save()
 					.then(
 						fav => {
