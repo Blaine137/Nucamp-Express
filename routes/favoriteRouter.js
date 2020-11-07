@@ -71,7 +71,7 @@ favoriteRouter.route('/')
 	})
 });
 
-favoriteRouter.route('/campsiteid')
+favoriteRouter.route('/:campsiteId')
 .options(cors.corsWithOptions, (req, res) => res.sendStatus(200))
 .get(cors.cors, authenticate.verifyUser, (req, res, next) => {
 	res.statusCode = 403;
