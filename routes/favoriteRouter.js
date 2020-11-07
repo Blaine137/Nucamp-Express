@@ -113,7 +113,13 @@ favoriteRouter.route('/:campsiteId')
             if(fav) {
                 let index = fav.campsites.indexOf(req.params.campsiteId)
                 fav.campsites.splice(index);
-                fav.save();
+                fav.save().then(
+                    fav => {
+                        res.statusCode = 200;
+                        res.setHeader('Content-Type', 'application/json');
+                        res.json(fav);
+                    }
+                )
                 res.statusCode = 200;
                 res.setHeader('Content-Type', 'application/json');
                 res.json(fav);
